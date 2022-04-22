@@ -1,0 +1,46 @@
+{% extends 'admin/admin_layout.html' %}
+{%set active_page = "admin_deliveries" %}
+{% block title %}Deliveries{% endblock %}
+
+
+{% block content %}
+
+<div class="container mb-5">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <h4>Delivery</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Email of User</th>
+                <th scope="col">Plant Name</th>
+                <th scope="col">Action </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for y in data2 %}
+            <tr>
+                <td>{{ y[1] }}</td>
+                <td>{{ y[2] }}</td>
+                <td>{{ y[0] }}</td>
+                <td> <a href="{{ url_for('received') }}?app_id={{y[3]}}" class="btn btn-primary"> Received </a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/admin_layout.html' %}
+{%set active_page = "admin_index" %}
+{% block title %}Admin Home{% endblock %}
+
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+   <!-- About Section -->
+   <div class="about-main">
+      <div class="row">
+         <div class="col-lg-8">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+               {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <h2>This is the admin part of the sovlanatir website!</h2>
+
+            <p>Number of trees adopted: {{ result|length }} </p>
+            <p>Number of applications pending: {{result2|length}}</p>
+
+
+         </div>
+
+      </div>
+      <!-- /.row -->
+   </div>
+
+
+
+</div>
+{% endblock %}

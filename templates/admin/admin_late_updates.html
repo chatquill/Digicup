@@ -1,0 +1,52 @@
+{% extends 'admin/admin_layout.html' %}
+{%set active_page = "admin_late" %}
+{% block title %}Late Updates{% endblock %}
+{% block content %}
+<br><br>
+<div class="container mb-5">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h4>Due Updates</h4>
+
+   <a class="btn btn-primary" href="{{ url_for('notify') }}">Notify All
+                    <span class="glyphicon glyphicon-chevron-centre"></span>
+   </a>
+   <br><br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Email of User</th>
+                <th scope="col">Plant Nickname</th>
+                <th scope="col">Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in results %}
+
+            <tr>
+                <td><img src="static/images/updates/{{x[2]}}" style="width:50px; height: 50px;" alt="" /></td>
+                <td>{{x[3]}}</td>
+                <td>{{x[0]}}</td>
+                <td>{{x[1]}}</td>
+        
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}

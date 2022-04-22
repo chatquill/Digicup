@@ -1,0 +1,50 @@
+{% extends 'admin/admin_layout.html' %}
+{% block title %}User's Plants{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+    <div class="portfolio-main">
+        <h2>Plants</h2>
+        <div class="row">
+
+               {% for result in results %}
+              <div class="col-lg-4 col-sm-6 portfolio-item">
+               <div class="card h-100">
+                 <div class="card-img">
+                    <a href="{{ url_for('admin_view_updates') }}?myplant_id={{result[0]}}">
+
+                     {%if result[5] %}
+                       <img class="card-img-top" src="static/images/updates/{{result[5]}}" style="height: 250px;" alt="" />
+                     {% else %}
+                     <img class="card-img-top" src="static/images/plants/alternate.jpg" style="height: 250px;" alt="" />  
+                     {% endif %}
+                       <div class="overlay"><i class="fas">View Updates</i></div>
+                    </a>
+                 </div>
+                 <div class="card-body">
+                    <h4 class="card-title"><a >Plant Type    : {{result[4]}}</a></h4>
+                    <h4 class="card-title"><a >Nickname      : {{result[3]}}</a></h4>
+                    <h4 class="card-title"><a >Date Delivered: {{result[1]}}</a></h4>
+                    {% if result[2] == 0 %}
+                    <h4 class="card-title"><a >Not yet planted</a></h4>
+                    {%else%}
+                    <h4 class="card-title"><a >Planted</a></h4>
+                    {% endif %}
+
+                 </div>
+               </div>
+              </div>
+               {% endfor %}
+
+
+
+        </div>
+           </div>
+           </div>
+        
+
+
+
+{% endblock %}

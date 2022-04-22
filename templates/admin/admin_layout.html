@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}}{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fontawesome CSS -->
+    <link href="static/css/all.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="static/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="logo" />
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item mx-2">
+                        <a class="nav-link {% if active_page == 'admin_index' %} active {% endif %}" href="{{ url_for('admin_index') }}">Home</a>
+                    </li>
+
+                    <li class="nav-item mx-2">
+                        <a class="nav-link {% if active_page == 'admin_late' %} active {% endif %}" href="{{ url_for('admin_late_updates') }}">Late</a>
+                    </li>
+
+                    <li class="nav-item mx-auto">
+                        <a class="nav-link {% if active_page == 'admin_plants' %} active {% endif %}" href="{{ url_for('admin_plants') }}">Plants Available</a>
+                    </li>
+
+
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link {% if active_page == 'admin_applications' %} active {% endif %}" href="{{ url_for('admin_applications') }}">Applications</a>
+                    </li>
+
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link {% if active_page == 'admin_deliveries' %} active {% endif %}" href="{{ url_for('admin_deliveries') }}">Deliveries</a>
+                    </li>
+
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link {% if active_page == 'admin_users' %} active {% endif %}" href="{{ url_for('admin_view_users') }}">Users</a>
+                    </li>
+
+                    {% if session['admin_logged_in']%}
+
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link" href="{{ url_for('admin_logout') }}">Logout</a>
+                    </li>
+                    {% else %}
+
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link {% if active_page == 'admin_login' %} active {% endif %}" href="{{ url_for('admin_login') }}">Login</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br><br>
+
+    {% block content %}{% endblock %}
+
+    <!-- /.container -->
+    <!--footer starts from here-->
+    <footer class="footer">
+
+        <div class="container">
+            <div class="logo">
+                <a href="#"><img src="" alt="" /></a>
+            </div>
+            <!--foote_bottom_ul_amrc ends here-->
+            <p class="copyright text-center">All Rights Reserved. &copy; 2018 <br>
+                <a href="#">SovLanatir</a> <br>
+                Contact us on: 25234234234
+                <br>
+            </p>
+            <ul class="social_footer_ul">
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+            <!--social_footer_ul ends here-->
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

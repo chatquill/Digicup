@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% set active_page = "applications" %}
+{% block title %}Applications{% endblock %}
+
+{% block content %}
+
+<div class="container mb-5">
+
+    <h2 class="mt-5">Applications</h2>
+
+    <table class="table" style="border-collapse:separate;
+    border-spacing:0 15px;">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in data %}
+            {% if x[2]==1 %}
+            <tr class="table-success">
+                <td>{{x[1]}}</td>
+                <td>{{x[0]}}</td>
+                <td>Approved</td>
+            </tr>
+            {% elif x[2]==0 %}
+            <tr class="table-danger">
+                <td>{{x[1]}}</td>
+                <td>{{x[0]}}</td>
+                <td>Rejected!!</td>
+            </tr>
+            {% else %}
+            <tr class="table-warning">
+                <td>{{x[1]}}</td>
+                <td>{{x[0]}}</td>
+                <td>Pending</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}

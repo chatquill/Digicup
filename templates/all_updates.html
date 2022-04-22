@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+{% set active_page = "feed" %}
+{% block title %}Feed{% endblock %}
+{% block header %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".like, .unlike").click(function(){
+        var id = this.id;
+        var split_id = id.split("_");
+        var text = split_id[0];
+        var postid = split_id[1];
+        var type = 0;
+        if(text == "like"){
+            type = 1;
+        }else{
+            type = 0;
+        }
+        $.ajax({
+            url: '/likeunlike',
+            type: 'post',
+            data: {postid:postid,type:type},
+            dataType: 'json',
+            success: function(data){
+                var likes = data['likes'];
+                var unlikes = data['unlikes'];
+                $("#likes_"+postid).text(likes);
+                $("#unlikes_"+postid).text(unlikes);
+                if(type == 1){
+                    $("#like_"+postid).css("color","#ffa449");
+                    $("#unlike_"+postid).css("color","lightseagreen");
+                }
+                if(type == 0){
+                    $("#unlike_"+postid).css("color","#ffa449");
+                    $("#like_"+postid).css("color","lightseagreen");
+                }
+            }
+        });
+    });
+});
+</script>
+
+<style>
+    .like,.unlike{
+        border: 0;
+        background: none;
+        letter-spacing: 1px;
+        color: lightseagreen;
+    }
+    .like,.unlike:hover{
+        cursor: pointer;
+    }
+    </style>
+{% endblock %}
+
+{% block content%}
+
+<div class="container">
+  
+    <div class="portfolio-main">
+        <h2 style="text-align: center;">Feed</h2>
+        <hr>
+        <div class="row">
+
+            {% for row in postall %}
+
+               <div class="col-lg-4 col-sm-6 portfolio-item">
+                  <div class="card h-100">
+                     <div class="card-img">
+                        <a href="#">
+                           <img class="card-img-top" style="height:300px;" src="static/images/updates/{{row.img}}" alt="" />
+                        </a>
+                     </div>
+                     <div class="card-body">
+                        <h4 class="card-title">
+                           <a>{{row.title}}</a>
+                        </h4>
+                        <p style="color:rgb(255, 255, 255)">{{row.content}}</p>
+                        <div class="post-action">
+                            <input type="button" value="Like" id="like_{{row.id}}" class="like" style="{{row.txtcolor}}" /> <span id="likes_{{row.id}}" style="color: aliceblue;">{{row.total_likes}}</span>       
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            {% endfor %}
+
+        </div>
+        <!-- /.row -->
+    </div>
+</div>
+{% endblock %}
+

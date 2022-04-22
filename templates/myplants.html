@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+{% set active_page = "myplants" %}
+{% block title %}My Plants{% endblock %}
+
+{% block content %}
+
+<!-- Portfolio Section -->
+<div class="container">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category,message in messages %}
+  <br>
+  <div class="alert alert-{{category}}">
+    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+    <strong>{{ message }} </strong>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="portfolio-main">
+    <h2 style="text-align: center;">My Plants</h2>
+    <hr>
+    <div class="row">
+
+      {% for plant in plants %}
+
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <div class="card-img">
+            <a href="#">
+              {% if plant.6 %}
+              <img class="card-img-top" style="height:300px;" src="static/images/updates/{{plant[6]}}" alt="" />
+              {% else %}
+              <img class="card-img-top" style="height:300px;" src="static/images/plants/{{plant[2]}}" alt="" />
+              <!-- Replace by image from database -->
+              <!-- <img class="card-img-top" src="static/images/ }}" alt="" /> -->
+              {% endif %}
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#">{{ plant.1 }} ({{ plant.0 }})</a>
+            </h4>
+            {% if not plant.4 %}
+            <p style="color:red">Click below to plant the tree!</p>
+            <button type="button" class="btn btn-warning" data-toggle="modal"
+              data-target="#edit_myplant_modal{{ plant.5 }}">
+              Update plant status
+            </button>
+            {% else %}
+            <p class="card-text" style="color:azure;">Planted Date : {{ plant.3 }}</p>
+
+            <a href="{{ url_for('updates') }}?myplant_id={{plant.5}}" class="btn btn-success">Update plant
+              information</a>
+            {% endif %}
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="edit_myplant_modal{{ plant.5 }}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Plant plant</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/edit_myplants" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="myplant_id" id="myplant_id" value="{{ plant.5 }}">
+
+                <div class="form-group">
+                  <label for="myplant_name">Plant Name</label>
+                  <input type="text" id="myplant_name" name="myplant_name" class="form-control" value="{{ plant.1 }}"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label for="image">Upload a pic</label>
+                  <input type="file" id="image" name="image" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="planted">Have you planted your plant?</label>
+                  <input type="checkbox" id="planted" name="planted" value="Yes">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="Submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+{%set active_page = "index" %}
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+
+<header class="slider-main">
+   <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+      <ol class="carousel-indicators">
+         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+         <!-- Slide One - Set the background image for this slide in the line below -->
+         <div class="carousel-item active" style="background-image: url('static/images/carousel1.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+               <h2>Sov Lanatir Reforestation Project</h2>
+               <p>Reforestation of endemic plants across the island</p>
+            </div>
+         </div>
+         <!-- Slide Two - Set the background image for this slide in the line below -->
+         <div class="carousel-item" style="background-image: url('static/images/carousel2.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+               <h3>Hikes</h3>
+               <p>Group hikes to plant plants</p>
+            </div>
+         </div>
+         <!-- Slide Three - Set the background image for this slide in the line below -->
+         <div class="carousel-item" style="background-image: url('static/images/carousel3.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+               <h3>Views</h3>
+               <p>Splendid views</p>
+            </div>
+         </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="sr-only">Next</span>
+      </a>
+   </div>
+</header>
+<!-- Page Content -->
+<div class="container">
+
+   <!-- About Section -->
+   <div class="about-main">
+      <div class="row">
+         <div class="col-lg-7">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="aler alert-success" role="alert">
+               {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <h2>About us</h2>
+            <p>We are a group of ambitious and passionate young Mauritians who readily fights against environmental pollution in an unconventional manner.
+                Each one of us, different in culture, background, academic avenues, have a will to pave the way towards a greener and cleaner environment 
+                where peace and harmony between human beings and Nature prevails above all. Regardless of all the beautiful things that differentiate us 
+                as Humans, we are all selflessly one when helping Mother Nature. Our Main Goal is to reset the relationship between Men and Nature. </p>
+            <h5>What we do?</h5>
+      
+            <p>Sov Lanatir is a registered NGO thriving to make the world a better place. We are a network of youngsters fighting together to create lasting 
+               change all across Mauritius and our communities. We aim at preserving our priceless Fauna and Flora and repopulating our endemic plants all 
+               around the island. It is an action platform which helps to invigorate people from all across the globe to be more environmentally conscious. 
+               We particularly aspire to inculcate the values of climate activism in our youngsters and the future leaders of tomorrow. It is only through solidarity from </p>
+         </div>
+
+         <div class="col-lg-5">
+            <h5 class="mb-4">Our Team</h5>
+            <p>Sov Lanatir want to induce this behavioral change in us, human beings, by sensitizing people through education, sustainable projects, 
+               creative ideas, art, music, etc. We welcome Mauritians especially our youth from all walks of life to contribute to the cause in their own way.
+               From our sports department, a movement of 5 steps Hiking whereby hikers are encouraged to pick up litter as they trail has been created. From our 
+               Flora department, we have had numerous clean-ups and planting of endemic plants. From our Arts department, we have helped in reusing plastic water 
+               bottles to construct the dragon of Tangloon in China Town. Each department of Sov Lanatir work collaboratively to bring change to this world. These are just a 
+               few of the sustainable action we have taken and endorsed to build a better future with the help of our diversified Heads of departments. </p>
+
+         </div>
+
+      </div>
+      <!-- /.row -->
+   </div>
+   <!-- Portfolio Section -->
+   <div class="portfolio-main">
+      <h2 style="text-align: center;">Endemic Plants Available</h2>
+      <hr style="border-top: 5px double #8c8b8b;"><br>
+      <div class="row">
+
+         {% for x in result %}
+         <div class="col-lg-4 col-sm-6 portfolio-item">
+            <div class="card h-100">
+               <div class="card-img">
+                  <a href="{{ url_for('view_details') }}?plant_id={{x[0]}}">
+                     <img class="card-img-top" src="static/images/plants/{{x[5]}}" alt="" />
+                     <div class="overlay"><i class="fas">View & Apply</i></div>
+                  </a>
+               </div>
+               <div class="card-body">
+                  <h4 class="card-title">
+                     <a href="{{ url_for('view_details') }}?plant_id={{x[0]}}">{{x[1]}}</a>
+                  </h4>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+
+
+
+      </div>
+      <!-- /.row -->
+   </div>
+
+
+
+   <!-- /.row -->
+
+
+</div>
+{% endblock %}

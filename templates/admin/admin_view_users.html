@@ -1,0 +1,53 @@
+{% extends 'admin/admin_layout.html' %}
+{%set active_page = "admin_users" %}
+{% block title %}View Users{% endblock %}
+
+{% block content %}
+
+<!-- Page Content -->
+<body>
+
+
+  <div class="py-5">
+    <div class="container">
+               {% with messages = get_flashed_messages(with_categories=true) %}
+               {% if messages %}
+               {% for category,message in messages %}
+                  <div class="alert alert-{{category}}">
+                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                     <strong>{{ message }} </strong>
+                  </div>
+               {% endfor %}
+               {% endif %}
+               {% endwith %}
+      <div class="row">
+      {% for result in results %}
+        <div class="col-lg-6 col-sm-6 portfolio-item">
+          <div  class="card">
+            <div class="card-block" style="text-align: center;border-style: ridge;"><br>
+              <h4 class="card-title">{{result.1}} {{result.2}}</h4>
+              <h6 class="card-subtitle text-muted">Address: {{result.3}} {{result.4}}</h6><br>
+              <h6 class="card-subtitle text-muted">Date of Birth : {{result.5}}</h6><br>
+              <h6 class="card-subtitle text-muted">Phone Number: {{result.6}}</h6><br>
+              <h6 class="card-subtitle text-muted">Email address: <a href="#" class="card-link">{{result.0}}</a></h6><br>
+                      <form action="/admin_view_myplants" method="post" enctype="multipart/form-data">
+
+                            <input type="hidden" name="email" value="{{result[0]}}">
+
+                          <div class="d-flex justify-content-center">
+                              <button type="submit" class="btn btn-success btn-block btn-lg text-body">View {{result[1]}}'s plants' </button>
+                          </div>
+
+                        </form>
+            </div>
+          </div><br>
+        </div>
+        <br>
+      {% endfor %}
+
+      </div><br>
+   </div>
+  </div>
+
+</body>
+{% endblock %}

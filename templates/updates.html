@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% block title %}Update{% endblock %}
+{% block content %}
+
+<div class="container" style="margin-top: 3rem ;">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category,message in messages %}
+  <div class="row">
+    <div class="col-5 mx-auto">
+     <div class="alert alert-{{category}}">
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <strong>{{ message }} </strong>
+     </div>
+    </div>
+    </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+    <h1 style="text-align: center ; margin-top: 3rem ; margin-bottom: 2rem">Plant Update</h1>
+    <form action="/updates" method="post" enctype="multipart/form-data">
+
+      <div class="row">
+        <div class="form-outline col-5 mx-auto mb-4">
+          <input type="file" id="file" name="update_image" class="form-control form-control-lg" required />
+          <label class="form-label" for="image">Update Image</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-outline col-5 mx-auto mb-4">
+          <input type="text" id="comment" name="update_comment" class="form-control form-control-lg" maxlength="100"/>
+          <label class="form-label" for="comment">Add a comment (Optional)</label>
+          <input type="hidden" name="myplant_id" value="{{myplant_id}}" class="form-control form-control-lg"/>
+        </div>
+      </div>
+
+
+
+        <div class="row">
+          <div class="col-5 mx-auto">
+            <button type="submit" class="btn btn-success btn-block btn-lg text-body">Send Update</button>
+          </div>
+        </div>
+
+      </form>
+</div>
+
+<div class="container">
+  <div class="portfolio-main">
+      <h2>Previous Updates</h2>
+      <div class="row">
+
+          {% for x in data %}
+
+             <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                   <div class="card-img">
+                      <a href="#">
+                         <img class="card-img-top" style="height:300px;" src="static/images/updates/{{x[4]}}" alt="" />
+                      </a>
+                   </div>
+                   <div class="card-body">
+                           <p class="card-text" style="color:#2faf31;">Date: <span style="color:azure">{{ x.2 }}</span>
+                           <br>
+                           Comment: <span style="color:azure">{{ x.3 }}</span>
+                           </p>
+                   </div>
+
+                </div>
+             </div>
+
+          {% endfor %}
+
+
+      </div>
+      <!-- /.row -->
+  </div>
+</div>
+
+
+
+{% endblock %}

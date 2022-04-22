@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{%set active_page = "login" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 3rem ;">
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ message }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <h1 style="text-align: center; margin-bottom: 2rem">Login to account</h1>
+  <form action="/login" method="post">
+
+    <div class="row">
+      <div class="form-outline col-6 mx-auto mb-4">
+        <input type="email" id="email" name="email" class="form-control form-control-lg" />
+        <label class="form-label" for="email">Your Email</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-outline col-6 mx-auto mb-4">
+        <input type="password" id="password" name="password" class="form-control form-control-lg" />
+        <label class="form-label" for="password">Password</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 mx-auto">
+        <button type="submit" class="btn btn-success btn-block btn-lg text-body">Login</button>
+      </div>
+    </div>
+
+    <div class="my-2">
+      <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register"
+        class="fw-bold text-body"><u>Register here</u></a></p>
+    </div>
+  </form>
+</div>
+
+
+
+{% endblock %}

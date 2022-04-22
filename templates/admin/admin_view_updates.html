@@ -1,0 +1,39 @@
+{% extends 'admin/admin_layout.html' %}
+{% block title %}View Updates{% endblock %}
+
+{% block content %}
+
+    <!-- Page Content -->
+
+    <div class="container" style="margin-top: 2%;">
+
+      <div class="row">
+        {% for result in results %}
+
+         <div class="col-lg-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" src="static/images/updates/{{result[2]}}" alt=""/></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a >Updated on {{result[0]}}</a>
+              </h4>
+               {% if result[1] %}
+               <p class="card-text">{{result[1]}}</p>
+ 
+               {% endif %}
+              
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      </div>
+
+               
+
+      <!-- /.row -->
+
+
+
+{% endblock %}
