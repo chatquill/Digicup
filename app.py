@@ -375,8 +375,8 @@ def all_updates():
     cursor = mysql.connection.cursor()
     cursor.execute("""
     SELECT updates.id, updates.update_img_url, updates.date, updates.comment, users.fname, users.lname FROM updates 
-    INNER JOIN like_unlike ON like_unlike.postid=updates.id
-    INNER JOIN users ON users.email=like_unlike.email 
+    INNER JOIN applications ON applications.id=updates.myplants_id
+    INNER JOIN users ON users.email=applications.email
     """)
     updates = cursor.fetchall()
 
