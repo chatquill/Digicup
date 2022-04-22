@@ -374,7 +374,9 @@ def updates():
 def all_updates():
     cursor = mysql.connection.cursor()
     cursor.execute("""
-    SELECT * FROM updates 
+    SELECT updates.id, updates.update_img_url, updates.date, updates.comment, users.fname, users.lname FROM updates 
+    INNER JOIN like_unlike ON like_unlike.postid=updates.id
+    INNER JOIN users ON users.email=like_unlike.email 
     """)
     updates = cursor.fetchall()
 
@@ -411,15 +413,17 @@ def all_updates():
         #    txtcolor2 = ''
 
         postObj = {
-            'id': row[0],
-            'img': row[4],
-            'title': row[2],
-            'content': row[3],
-            'total_likes': total_likes,
-            #'total_unlikes': total_unlikes,
-            'txtcolor': txtcolor
-            #'txtcolor2': txtcolor2
-            }
+                    'id': row[0],
+                    'img': row[1],
+                    'title': row[2],
+                    'content': row[3],
+                    'fname': row[4],
+                    'lname': row[5],
+                    'total_likes': total_likes,
+                    #'total_unlikes': total_unlikes,
+                    'txtcolor': txtcolor
+                    #'txtcolor2': txtcolor2
+                    }
         postArray.append(postObj)
     return render_template('all_updates.html', postall=postArray)
 
